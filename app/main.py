@@ -11,21 +11,21 @@ app = FastAPI()
 
 @app.get("/")
 def index():
-    return {"Avaliação Tecnica":"Tiago Samapaio",
-            "Status": "Em Andamento"}
+    return {"Teste Capgemini":"Tiago Samapaio",
+                                "Status": "Em Andamento"}
 
 @app.post("/calcula/")
 async def calculet_item(item:Item):
-        item_dict = item.dict()   
+        item_dict = item.dict()
         if isinstance(item_dict,dict):
             if item_dict['acao'] == 'sum':
-                item_dict.update({"result":item_dict['price'] + item_dict['juros']})
+                item_dict.update({"result": item.somar(item_dict['price'], item_dict['juros'])})
             elif item_dict['acao'] == 'sub':
-                item_dict.update({"result":item_dict['price'] - item_dict['juros']})
+                item_dict.update({"result": item.subtrair(item_dict['price'], item_dict['juros'])})
             elif item_dict['acao'] == 'mul':
-                item_dict.update({"result":item_dict['price'] * item_dict['juros']})
-            elif item_dict['acao'] == 'div' and item_dict['juros'] != 0:
-                item_dict.update({"result":item_dict['price'] / item_dict['juros']})
+                item_dict.update({"result":item.multiplicar(item_dict['price'], item_dict['juros'] )})
+            elif item_dict['acao'] == 'div':
+                item_dict.update({"result":item.dividir(item_dict['price'], item_dict['juros'])})
             else:
                 item_dict.update({"result":"Operação não encontrada"})
             return item_dict
