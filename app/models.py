@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 
 
 class Item(BaseModel):
@@ -14,8 +16,10 @@ class Item(BaseModel):
     def somar(self, arq1, arq2):       
         try:
             result = arq1 + arq2
+            #json_result = jsonable_encoder(result)
         except:
             raise
+        #return JSONResponse(content=json_result)
         return result
 
     def dividir(self, arq1, arq2):
