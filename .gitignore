@@ -1,4 +1,4 @@
-/__pycache__
-.gitignore
+/app/__pycache__
+.gitignore/
 *.pyc
 .pytest_cache
