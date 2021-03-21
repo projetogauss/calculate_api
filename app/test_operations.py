@@ -12,7 +12,7 @@ def test_read_main():
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"Teste Capgemini":"Tiago Samapaio",
-                                "Status": "Em Andamento"}
+                                "Status": "Finalizado"}
 
 """
 Testando operacao de somar passando o objeto JSON
@@ -24,14 +24,16 @@ def test_somar():
          json={
                 "name": "Mock",
                 "description": "Testando endpoint",
-                "price": 110.0,
-                "juros": 11.50,
+                "price": 30.0,
+                "juros": 3.0,
                 "tax": 1.0,
-                "acao": "sum",
-                "result": 0
+                "acao": "sum"
             },
     )
     assert response.status_code == 200
+    assert response.json() == {
+                            "result": 33.0
+                            }
 
 """
 Testando operacao de dividir passando o objeto JSON
@@ -43,14 +45,14 @@ def test_dividir():
          json={
                 "name": "Mock",
                 "description": "Testando endpoint",
-                "price": 110.0,
-                "juros": 11.50,
+                "price": 30.0,
+                "juros": 3.0,
                 "tax": 1.0,
-                "acao": "div",
-                "result": 0
+                "acao": "div"
             },
     )
     assert response.status_code == 200
+    assert response.json() == {"result" : 10}
 
 """
 Testando operacao de multiplicar passando o objeto JSON
@@ -62,15 +64,14 @@ def test_multiplicar():
          json={
                 "name": "Mock",
                 "description": "Testando endpoint",
-                "price": 110.0,
-                "juros": 11.50,
+                "price": 30.0,
+                "juros": 3.0,
                 "tax": 1.0,
-                "acao": "mul",
-                "result": 0
+                "acao": "mul"
             },
     )
     assert response.status_code == 200
-
+    assert response.json() == {"result" : 90}
 """
 Testando operacao de subtrair passando o objeto JSON
 via POST e subtrair os valores das chaves price e juros
@@ -81,30 +82,12 @@ def test_subtrair():
          json={
                 "name": "Mock",
                 "description": "Testando endpoint",
-                "price": 110.0,
-                "juros": 11.50,
+                "price": 30.0,
+                "juros": 3.0,
                 "tax": 1.0,
-                "acao": "sub",
-                "result": 0
+                "acao": "sub"
             },
     )
     assert response.status_code == 200
+    assert response.json() == {"result" : 27}
 
-    """
-Testando operacao de subtrair passando o objeto JSON
-via POST e subtrair os valores das chaves price e juros
-"""
-def test_operacao_que_nao_exist():
-    response = client.post(
-        "/calcula/",
-         json={
-                "name": "Mock",
-                "description": "Testando endpoint",
-                "price": 110.0,
-                "juros": 11.50,
-                "tax": 1.0,
-                "acao": "su2",
-                "result": 0
-            },
-    )
-    assert response.status_code == 200
